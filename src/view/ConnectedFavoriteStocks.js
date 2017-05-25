@@ -1,0 +1,17 @@
+import { connect } from 'react-redux'
+import FavoriteStocks from './FavoriteStocks'
+import { selectFavoriteStocks } from '../model/selectors'
+import { removeFavoriteStock } from '../model/actions'
+const mapStateToProps = state => ({
+  stocks: selectFavoriteStocks(state)
+})
+
+const mapDispatchToProps = dispatch => ({
+  removeStock: symbol => {
+    dispatch(removeFavoriteStock(symbol))
+  }
+})
+
+const ConnectedFavoriteStocks = connect(mapStateToProps, mapDispatchToProps)(FavoriteStocks)
+
+export default ConnectedFavoriteStocks
