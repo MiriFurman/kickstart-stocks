@@ -6,7 +6,7 @@ import Highlight from './Highlight'
 const Stock = ({stock, searchTerm, addFavoriteStock}) => 
   <tr>
     <td>
-      <button onClick={() => addFavoriteStock(stock)}>Add</button>
+      <button onClick={() => addFavoriteStock(stock.symbol)}>Add</button>
     </td>
     <td>
       <Highlight text={stock.symbol} term={searchTerm}/>    

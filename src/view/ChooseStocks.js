@@ -20,7 +20,7 @@ export default class ChooseStock extends Component {
   render() {
     return (
       <div>
-        <input value={this.props.searchTerm} onChange={e => this.props.onSearchTermChange(e.target.value)}/>
+        <input value={this.props.searchTerm} placeholder="Search for a stock symbol or company name" onChange={e => this.props.onSearchTermChange(e.target.value)}/>
         <table><tbody>
         {
           map(stock => 
