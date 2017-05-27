@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { pure } from 'recompose'
 
 import FavoriteCount from './FavoriteCount'
 import { VIEW_SEARCH, VIEW_FAVORITES, updateView } from '../model/actions'
@@ -58,7 +59,7 @@ const mapDispatchToProps = dispatch => ({
   setView: view => dispatch(updateView(view))
 })
 
-const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(pure(App))
 export default ConnectedApp
 
      

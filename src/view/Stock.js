@@ -2,6 +2,7 @@ import React from 'react'
 import Change from './Change'
 import Price from './Price'
 import Highlight from './Highlight'
+import { pure } from 'recompose'
 
 const Stock = ({stock, searchTerm, addFavoriteStock, canAdd}) => 
   <tr>
@@ -24,4 +25,4 @@ const Stock = ({stock, searchTerm, addFavoriteStock, canAdd}) =>
     </td>
   </tr>
 
-export default Stock
+export default pure(Stock)

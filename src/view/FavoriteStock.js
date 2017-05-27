@@ -1,6 +1,7 @@
 import React from 'react'
 import Change from './Change'
 import Price from './Price'
+import { pure } from 'recompose'
 
 const Stock = ({stock, removeStock}) =>
   <tr>
@@ -14,4 +15,4 @@ const Stock = ({stock, removeStock}) =>
     <td><Change price={stock.price} change={stock.change}/></td>
   </tr>
 
-export default Stock
+export default pure(Stock)

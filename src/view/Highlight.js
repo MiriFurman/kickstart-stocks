@@ -1,6 +1,7 @@
 import React from 'react'
 import { map, toLower } from 'lodash/fp'
 import Term from './Term'
+import { pure } from 'recompose'
 
 export const splitByTerm = (text, term) => {
   if(text === '')
@@ -53,4 +54,4 @@ const Highlight = ({text, term}) => {
   return <span>{ termComponents }</span>
 }
 
-export default Highlight
+export default pure(Highlight)

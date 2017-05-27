@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { pure } from 'recompose'
 
 const classForChange = change => `label label-${change > 0 ? 'success' : change < 0 ? 'danger' : 'default'}` 
   
-export default class Change extends Component {
+class Change extends Component {
   
   static propTypes = {
     price: PropTypes.number.isRequired,
@@ -29,3 +30,4 @@ export default class Change extends Component {
   }
 }
 
+export default pure(Change)

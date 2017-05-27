@@ -1,6 +1,7 @@
 import React from 'react'
 import { map } from 'lodash/fp'
 import FavoriteStock from './FavoriteStock'
+import { pure } from 'recompose'
 
 const FavoriteStocks = ({stocks, removeStock}) => 
   <div>
@@ -21,5 +22,5 @@ const FavoriteStocks = ({stocks, removeStock}) =>
     </table>
   </div>
 
-export default FavoriteStocks
+export default pure(FavoriteStocks)
 
