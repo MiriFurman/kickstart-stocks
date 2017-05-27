@@ -31,7 +31,7 @@ describe('split by term', () => {
     expect(splitByTerm('blah Blah xYz', 'Xyz')).toEqual([Term('blah Blah ', false), Term('xYz', true)])
   })
 
-  test.only('term occur twice', () => {
+  test('term occur twice', () => {
     expect(splitByTerm('blah XYZ Blah xYz blaH', 'Xyz')).toEqual([Term('blah ', false), Term('XYZ', true), Term(' Blah ', false), Term('xYz', true), Term(' blaH', false)])
   })
 

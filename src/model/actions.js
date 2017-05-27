@@ -1,4 +1,5 @@
-import { selectFavoriteStockSymbols } from './selectors'
+import { debounce } from 'lodash/fp'
+import { selectFavoriteSymbols } from './selectors'
 import stocks from '../stocks/stocks'
 
 export const SET_SEARCH_TERM = 'set-search-term'
@@ -14,15 +15,19 @@ export const removeFavoriteStock = symbol => ({type: REMOVE_FAVORITE_STOCK, symb
 export const updateFavoriteStocks = stocks => ({type: UPDATE_FAVORITE_STOCKS, stocks})
 
 export const updateRemoteFavoriteStocks = (dispatch, getState) => {
-  const symbols = selectFavoriteStockSymbols(getState())
+  const symbols = selectFavoriteSymbols(getState())
   stocks.getStockBySymbols(symbols).then(stocks => {
     dispatch(updateFavoriteStocks(stocks))
   })
 }
-
-export const updateSearchTerm = term => (dispatch, getState) => {
-  dispatch(setSearchTerm(term))
+ 
+const searchStocks = debounce(100, (term, dispatch) => {
   stocks.searchStocks(term).then(stocks => {
     dispatch(setSearchedStocks(stocks))
   })
+})
+
+export const updateSearchTerm = term => (dispatch, getState) => {
+  dispatch(setSearchTerm(term))
+  searchStocks(term, dispatch)
 }

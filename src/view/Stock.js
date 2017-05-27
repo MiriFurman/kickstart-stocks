@@ -3,10 +3,12 @@ import Change from './Change'
 import Price from './Price'
 import Highlight from './Highlight'
 
-const Stock = ({stock, searchTerm, addFavoriteStock}) => 
+const Stock = ({stock, searchTerm, addFavoriteStock, canAdd}) => 
   <tr>
     <td>
-      <button onClick={() => addFavoriteStock(stock.symbol)}>Add</button>
+      <button className="btn btn-success" disabled={!canAdd} onClick={() => addFavoriteStock(stock.symbol)}>
+        <span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+      </button>
     </td>
     <td>
       <Highlight text={stock.symbol} term={searchTerm}/>    

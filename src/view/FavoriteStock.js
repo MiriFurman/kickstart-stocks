@@ -4,10 +4,14 @@ import Price from './Price'
 
 const Stock = ({stock, removeStock}) =>
   <tr>
-    <button onClick={() => removeStock(stock.symbol)}>Remove</button>
+    <td>
+      <button className="btn btn-danger" onClick={() => removeStock(stock.symbol)}>
+        <span className="glyphicon glyphicon-minus-sign" aria-hidden="true"> </span>
+      </button>
+    </td>
     <td>{stock.symbol}</td>
     <td><Price price={stock.price} change={stock.change}/></td>
-    <td><Change price={stock.change} change={stock.change}/></td>
+    <td><Change price={stock.price} change={stock.change}/></td>
   </tr>
 
 export default Stock

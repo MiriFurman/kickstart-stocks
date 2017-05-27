@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-
-import logo from './logo.svg'
-import './App.css'
+import FavoriteCount from './FavoriteCount'
+// import { Button, Jumbotron, Container, Row, Col, Badge } from 'reactstrap'
 
 import ConnectedChooseStocks from './ConnectedChooseStocks'
 import ConnectedFavoriteStocks from './ConnectedFavoriteStocks'
@@ -30,23 +29,39 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Kickstart Stocks</h2>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <h1>Kickstart Stocks</h1>
+          </div>
         </div>
-
-        <p className="App-intro"></p>
-  
-        <div>
-          <button onClick={() => {this.setState({view: VIEW_SEARCH})}} disabled={this.state.view === VIEW_SEARCH}>Search</button>
-          <button onClick={() => {this.setState({view: VIEW_FAVORITES})}} disabled={this.state.view === VIEW_FAVORITES}>Favorites</button>
+        <div className="row">
+          <div className="col-md-12">
+            <button 
+                className={`btn ${this.state.view === VIEW_SEARCH ? 'btn-primary' : 'btn-default'}`} 
+                onClick={() => {this.setState({view: VIEW_SEARCH})}} 
+                disabled={this.state.view === VIEW_SEARCH}>
+              Search 
+            </button>
+            <button 
+                className={`btn ${this.state.view === VIEW_FAVORITES ? 'btn-primary' : 'btn-default'}`} 
+                onClick={() => {this.setState({view: VIEW_FAVORITES})}} 
+                disabled={this.state.view === VIEW_FAVORITES}>
+              Favorites <FavoriteCount/>
+              
+            </button>
+          </div>
         </div>
-
-        { this.getComponentByView() }
+        <div className="row">
+          <div className="col-md-12">
+            { this.getComponentByView() }
+          </div>
+        </div>
       </div>
     )
   }
 }
 
 export default App
+
+     
