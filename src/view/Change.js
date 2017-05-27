@@ -22,7 +22,7 @@ export default class Change extends Component {
     const { percentage } = this.state
 
     return (
-        <span className={classForChange(change)} onClick={() => this.setState({percentage: !percentage})}>
+        <span style={{cursor: 'pointer'}} className={classForChange(change)} onClick={() => this.setState({percentage: !percentage})}>
           { percentage ? <span>{(change * 100).toFixed(2)}%</span> : (price * change).toFixed(2) }
       </span>
     )

@@ -4,10 +4,10 @@ import Term from './Term'
 
 export const splitByTerm = (text, term) => {
   if(text === '')
-    return [Term('', false)]
+    return []
 
   if(term === '')
-    return [Term(text, false)]
+    return [Term(text, false, 'term-1')]
 
   const loText = toLower(text)
   const loTerm = toLower(term)

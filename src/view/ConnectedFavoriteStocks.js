@@ -1,9 +1,10 @@
 import { connect } from 'react-redux'
 import FavoriteStocks from './FavoriteStocks'
-import { selectFavoriteStocks } from '../model/selectors'
+import { selectStocks } from '../model/selectors'
 import { removeFavoriteStock } from '../model/actions'
+
 const mapStateToProps = state => ({
-  stocks: selectFavoriteStocks(state)
+  stocks: selectStocks(state)
 })
 
 const mapDispatchToProps = dispatch => ({

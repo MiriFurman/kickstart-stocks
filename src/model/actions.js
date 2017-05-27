@@ -1,29 +1,51 @@
 import { debounce } from 'lodash/fp'
-import { selectFavoriteSymbols } from './selectors'
+import { selectFavoriteSymbols, selectView, selectSearchTerm } from './selectors'
 import stocks from '../stocks/stocks'
 
+export const VIEW_SEARCH = 'search'
+export const VIEW_FAVORITES = 'favorites'
+
+export const SET_VIEW = 'set-view'
 export const SET_SEARCH_TERM = 'set-search-term'
-export const SET_SEARCHED_STOCKS = 'set-searched-stocks'
 export const ADD_FAVORITE_STOCK = 'add-favorite-stock'
 export const REMOVE_FAVORITE_STOCK = 'remove-favorite-stocks'
-export const UPDATE_FAVORITE_STOCKS = 'update-favorite-stocks'
+export const SET_STOCKS = 'update-stocks'
 
+export const setView = view => ({type: SET_VIEW, view})
 export const setSearchTerm = term => ({type: SET_SEARCH_TERM, term})
-export const setSearchedStocks = stocks => ({type: SET_SEARCHED_STOCKS, stocks})
 export const addFavoriteStock = symbol => ({type: ADD_FAVORITE_STOCK, symbol})
 export const removeFavoriteStock = symbol => ({type: REMOVE_FAVORITE_STOCK, symbol})
-export const updateFavoriteStocks = stocks => ({type: UPDATE_FAVORITE_STOCKS, stocks})
+export const setStocks = stocks => ({type: SET_STOCKS, stocks})
 
-export const updateRemoteFavoriteStocks = (dispatch, getState) => {
-  const symbols = selectFavoriteSymbols(getState())
-  stocks.getStockBySymbols(symbols).then(stocks => {
-    dispatch(updateFavoriteStocks(stocks))
-  })
+export const updateView = view => dispatch => {
+  dispatch(setView(view))
+  dispatch(updateStocks)
+}
+
+export const updateStocks = (dispatch, getState) => {
+  const state = getState()
+  const view = selectView(state)
+  if(view === VIEW_FAVORITES){
+    const symbols = selectFavoriteSymbols(state)
+    if(symbols.length > 0){
+      stocks.getStockBySymbols(symbols).then(stocks => {
+        dispatch(setStocks(stocks))
+      })
+    }
+  }
+  else if (view === VIEW_SEARCH){
+    const term = selectSearchTerm(state)
+    if(term !== ''){
+      stocks.searchStocks(term).then(stocks => {
+        dispatch(setStocks(stocks))
+      })
+    }
+  }
 }
  
-const searchStocks = debounce(100, (term, dispatch) => {
+const searchStocks = debounce(400, (term, dispatch) => {
   stocks.searchStocks(term).then(stocks => {
-    dispatch(setSearchedStocks(stocks))
+    dispatch(setStocks(stocks))
   })
 })
 

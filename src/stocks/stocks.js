@@ -14,6 +14,6 @@ setInterval(() => {
   stocksDB.update(updateStock)
 }, 1000)
 
-const stocksAPI = StocksAPI(stocksDB, 1000)
+const stocksAPI = StocksAPI(stocksDB, 500)
 
 export default stocksAPI 

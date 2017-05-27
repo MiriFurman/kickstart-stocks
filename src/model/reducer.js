@@ -1,24 +1,26 @@
-import { uniq, without, filter, includes } from 'lodash/fp'
-import { SET_SEARCH_TERM, SET_SEARCHED_STOCKS, ADD_FAVORITE_STOCK, REMOVE_FAVORITE_STOCK, UPDATE_FAVORITE_STOCKS } from './actions'
+import { uniq, without, filter } from 'lodash/fp'
+import { SET_VIEW, SET_SEARCH_TERM, ADD_FAVORITE_STOCK, REMOVE_FAVORITE_STOCK, SET_STOCKS } from './actions'
+import { VIEW_SEARCH } from './actions'
 
 const defaultState = {
+  view: VIEW_SEARCH,
   searchTerm: '',
   favoriteSymbols: [],
-  favoriteStocks: [],
-  searchedStocks: []
+  stocks: []
 }
 
 const reducer = (state = defaultState, action) => {
   switch(action.type){
+    case SET_VIEW:
+      return {
+        ...state,
+        view: action.view,
+        stocks: []
+      }
     case SET_SEARCH_TERM: 
       return {
         ...state,
         searchTerm: action.term
-      }
-    case SET_SEARCHED_STOCKS:
-      return {
-        ...state, 
-        searchedStocks: action.stocks
       }
     case ADD_FAVORITE_STOCK: 
       return {
@@ -29,12 +31,12 @@ const reducer = (state = defaultState, action) => {
       return {
         ...state,
         favoriteSymbols: without([action.symbol], state.favoriteSymbols),
-        favoriteStocks: filter(stock => stock.symbol !== action.symbol, state.favoriteStocks)
+        stocks: filter(stock => stock.symbol !== action.symbol, state.stocks)
       }
-    case UPDATE_FAVORITE_STOCKS:
+    case SET_STOCKS:
       return {
         ...state, 
-        favoriteStocks: filter(stock => includes(stock.symbol, state.favoriteSymbols), action.stocks)
+        stocks: action.stocks
       }
     default:
       return state
