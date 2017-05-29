@@ -1,5 +1,5 @@
 import { splitByTerm } from './Highlight.js'
-import Term from './Term'
+import { NormalTerm, HighlightTerm } from './Term'
 
 describe('split by term', () => {
 
@@ -12,37 +12,37 @@ describe('split by term', () => {
   })
 
   test('empty term', () => {
-    expect(splitByTerm('hello', '')).toEqual([Term('hello', false, 'term-1')])
+    expect(splitByTerm('hello', '')).toEqual([NormalTerm('hello')])
   })
 
   test('not occuring', () => {
-    expect(splitByTerm('hello world', 'xyz')).toEqual([Term('hello world', false, 'term-1')])
+    expect(splitByTerm('hello world', 'xyz')).toEqual([NormalTerm('hello world')])
   })
 
   test('term occur at start', () => {
-    expect(splitByTerm('xYz blah Blah', 'Xyz')).toEqual([Term('xYz', true, 'term-1'), Term(' blah Blah', false, 'term-2')])
+    expect(splitByTerm('xYz blah Blah', 'Xyz')).toEqual([HighlightTerm('xYz'), NormalTerm(' blah Blah')])
   })
 
   test('term occur at middle', () => {
-    expect(splitByTerm('blah xYz Blah', 'Xyz')).toEqual([Term('blah ', false, 'term-1'), Term('xYz', true, 'term-2'), Term(' Blah', false, 'term-3')])
+    expect(splitByTerm('blah xYz Blah', 'Xyz')).toEqual([NormalTerm('blah ', 'term-1'), HighlightTerm('xYz'), NormalTerm(' Blah')])
   })
 
   test('term occur at end', () => {
-    expect(splitByTerm('blah Blah xYz', 'Xyz')).toEqual([Term('blah Blah ', false, 'term-1'), Term('xYz', true, 'term-2')])
+    expect(splitByTerm('blah Blah xYz', 'Xyz')).toEqual([NormalTerm('blah Blah '), HighlightTerm('xYz')])
   })
 
   test('term occur twice', () => {
     expect(splitByTerm('blah XYZ Blah xYz blaH', 'Xyz'))
       .toEqual([
-        Term('blah ', false, 'term-1'), 
-        Term('XYZ', true, 'term-2'),
-        Term(' Blah ', false, 'term-3'),
-        Term('xYz', true, 'term-4'), 
-        Term(' blaH', false, 'term-5')
+        NormalTerm('blah '), 
+        HighlightTerm('XYZ'),
+        NormalTerm(' Blah '),
+        HighlightTerm('xYz'), 
+        NormalTerm(' blaH')
       ])
   })
 
   test('AAAAA', () => {
-    expect(splitByTerm('AAAAA', 'aa')).toEqual([Term('AA', true, 'term-1'), Term('AA', true, 'term-2'), Term('A', false, 'term-3')])
+    expect(splitByTerm('AAAAA', 'aa')).toEqual([HighlightTerm('AA'), HighlightTerm('AA'), NormalTerm('A')])
   })
 })

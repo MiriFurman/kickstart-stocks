@@ -1,55 +1,35 @@
 import React from 'react'
-import { map, toLower } from 'lodash/fp'
-import Term from './Term'
+import { map, toLower, concat, range, zipWith, assign } from 'lodash/fp'
 import { pure } from 'recompose'
+import { NormalTerm, HighlightTerm } from './Term'
 
 export const splitByTerm = (text, term) => {
   if(text === '')
     return []
 
   if(term === '')
-    return [Term(text, false, 'term-1')]
-
-  const loText = toLower(text)
-  const loTerm = toLower(term)
-
-  let i = 0
-  const termIndices = []
-  const terms = []
-  let key = 1
-
-  const addTerm = (term, highlight) => {
-    if(term.length === 0)
-      return
-
-    terms.push(Term(term, highlight, `term-${key}`))
-    key++
-  }
-
-  while(true) {
-    const index = loText.indexOf(loTerm, i)
-    if(index < 0){
-      addTerm(text.substr(i), false)
-      break
-    }
-
-    termIndices.push(index)
+    return [NormalTerm(text)]
     
-    addTerm(text.substring(i, index), false)
-    addTerm(text.substr(index, term.length), true)
-    i = index + term.length
-  } 
+  const index = toLower(text).indexOf(toLower(term))
+  if(index < 0)
+    return [NormalTerm(text)]
 
-  return terms
+  if(index === 0) 
+    return concat([HighlightTerm(text.substr(0, term.length))], splitByTerm(text.substr(term.length), term))
+  else 
+    return concat([NormalTerm(text.substr(0, index)), HighlightTerm(text.substr(index, term.length))], splitByTerm(text.substr(index + term.length), term))  
 }
 
-const HighlightTerm = ({text}) => <span style={{backgroundColor: 'lightblue'}}>{text}</span>
+const HighlightTermComp = ({text}) => <span style={{backgroundColor: 'lightblue'}}>{text}</span>
 
-const termToComponent = term => term.highlight ? <HighlightTerm key={term.key} text={term.text}/> : <span key={term.key}>{term.text}</span>
+const termToComponent = term => term.highlight ? <HighlightTermComp key={term.key} text={term.text}/> : <span key={term.key}>{term.text}</span>
 
 const Highlight = ({text, term}) => {
   const terms = splitByTerm(text, term)
-  const termComponents = map(termToComponent, terms)
+  const indices = range(0, terms.length)
+  const indexedTerms = zipWith((term, i) => assign(term, {key: `term-${i}`}), terms, indices)
+
+  const termComponents = map(termToComponent, indexedTerms)
   
   return <span>{ termComponents }</span>
 }

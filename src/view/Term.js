@@ -1,3 +1,4 @@
-const Term = (text, highlight, key) => ({text, highlight, key})
+const Term = highlight => text => ({text, highlight})
 
-export default Term
+export const NormalTerm = Term(false)
+export const HighlightTerm = Term(true)
