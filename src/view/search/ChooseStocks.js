@@ -1,9 +1,9 @@
 import React from 'react'
 import { map, includes } from 'lodash/fp'
-import Stock from './Stock'
 import PropTypes from 'prop-types'
-import stockPropType from './stockProps'
 import { pure } from 'recompose'
+import Stock from './Stock'
+import stockPropType from './stockProps'
 
 const ChooseStock = ({stocks, favoriteSymbols, searchTerm, onSearchTermChange, addFavoriteStock}) => 
   <div>

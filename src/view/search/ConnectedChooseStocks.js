@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import ChooseStocks from './ChooseStocks'
-import { selectSearchTerm, selectStocks, selectFavoriteSymbols } from '../model/selectors'
-import { updateSearchTerm, addFavoriteStock } from '../model/actions'
+import { selectSearchTerm, selectStocks, selectFavoriteSymbols } from '../../model/selectors'
+import { updateSearchTerm, addFavoriteStock } from '../../model/actions'
 
 const mapStateToProps = state => ({
   stocks: selectStocks(state),

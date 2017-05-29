@@ -1,14 +1,14 @@
 import React from 'react'
-import Change from './Change'
-import Price from './Price'
-import Highlight from './Highlight'
 import { pure } from 'recompose'
+import Change from '../Change'
+import Price from '../Price'
+import Highlight from './Highlight'
 
 const Stock = ({stock, searchTerm, addFavoriteStock, canAdd}) => 
   <tr>
     <td>
       <button className="btn btn-success" disabled={!canAdd} onClick={() => addFavoriteStock(stock.symbol)}>
-        <span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        <span className="glyphicon glyphicon-plus-sign" aria-hidden="true"/>
       </button>
     </td>
     <td>

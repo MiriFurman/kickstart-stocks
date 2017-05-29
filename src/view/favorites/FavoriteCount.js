@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { selectFavoriteCount } from '../model/selectors'
 import { pure } from 'recompose'
+import { selectFavoriteCount } from '../../model/selectors'
 
 const FavoriteCount = ({count}) => count > 0 ? <span className="badge">{count}</span> : null
 

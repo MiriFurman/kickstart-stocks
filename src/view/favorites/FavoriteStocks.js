@@ -1,14 +1,15 @@
 import React from 'react'
+import { pure } from 'recompose'
 import { map } from 'lodash/fp'
 import FavoriteStock from './FavoriteStock'
-import { pure } from 'recompose'
 
-const FavoriteStocks = ({stocks, removeStock}) => 
+const FavoriteStocks = ({stocks, removeStock, addToPortfolio, removeFromPortfolio}) => 
   <div>
     <table className="table table-striped">
       <thead>
         <tr>
           <th>Remove</th>
+          <th>Portfolio</th>
           <th>Symbol</th>
           <th>Price</th>
           <th>Change</th>
@@ -16,7 +17,13 @@ const FavoriteStocks = ({stocks, removeStock}) =>
       </thead>
       <tbody>
         {
-          map(stock => <FavoriteStock key={stock.symbol} stock={stock} removeStock={removeStock}/>, stocks)
+          map(stock => <FavoriteStock 
+            key={stock.symbol} 
+            stock={stock} 
+            removeStock={removeStock}
+            addToPortfolio={addToPortfolio}
+            removeFromPortfolio={removeFromPortfolio}
+          />, stocks)
         }
       </tbody>
     </table>

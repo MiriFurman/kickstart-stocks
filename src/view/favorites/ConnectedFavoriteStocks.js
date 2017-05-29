@@ -1,15 +1,21 @@
 import { connect } from 'react-redux'
 import FavoriteStocks from './FavoriteStocks'
-import { selectStocks } from '../model/selectors'
-import { removeFavoriteStock } from '../model/actions'
+import { selectFavoriteStocks } from '../../model/selectors'
+import { removeFavoriteStock, addPortfolioStock, removePortfolioStock } from '../../model/actions'
 
 const mapStateToProps = state => ({
-  stocks: selectStocks(state)
+  stocks: selectFavoriteStocks(state)
 })
 
 const mapDispatchToProps = dispatch => ({
   removeStock: symbol => {
     dispatch(removeFavoriteStock(symbol))
+  },
+  addToPortfolio: symbol => {
+   dispatch(addPortfolioStock(symbol))   
+  },
+  removeFromPortfolio: symbol => {
+    dispatch(removePortfolioStock(symbol))
   }
 })
 

@@ -2,12 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { pure } from 'recompose'
 
-import FavoriteCount from './FavoriteCount'
-import { VIEW_SEARCH, VIEW_FAVORITES, updateView } from '../model/actions'
-import { selectView } from '../model/selectors'
+import FavoriteCount from '../favorites/FavoriteCount'
+import { VIEW_SEARCH, VIEW_FAVORITES, updateView } from '../../model/actions'
+import { selectView } from '../../model/selectors'
 
-import ConnectedChooseStocks from './ConnectedChooseStocks'
-import ConnectedFavoriteStocks from './ConnectedFavoriteStocks'
+import ConnectedChooseStocks from '../search/ConnectedChooseStocks'
+import ConnectedFavoriteStocks from '../favorites/ConnectedFavoriteStocks'
 
 const getComponentByView = view => {
   switch(view){
