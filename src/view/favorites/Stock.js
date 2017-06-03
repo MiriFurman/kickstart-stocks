@@ -3,7 +3,7 @@ import { pure } from 'recompose'
 import Change from '../Change'
 import Price from '../Price'
 
-const Stock = ({stock, removeStock, addToPortfolio, removeFromPortfolio}) =>
+const Stock = ({stock, removeStock, inPortfolio, toggleInPortfolio}) =>
   <tr>
     <td>
       <button className="btn btn-danger" onClick={() => removeStock(stock.symbol)}>
@@ -12,13 +12,13 @@ const Stock = ({stock, removeStock, addToPortfolio, removeFromPortfolio}) =>
     </td>
     <td>
       {
-        stock.inPortfolio 
+        inPortfolio 
           ? 
-            <button className="btn btn-danger" onClick={() => removeFromPortfolio(stock.symbol)}>
+            <button className="btn btn-danger" onClick={() => toggleInPortfolio(stock.symbol)}>
               <span className="glyphicon glyphicon-minus-sign" aria-hidden="true"/>
             </button>
           : 
-            <button className="btn btn-success" onClick={() => addToPortfolio(stock.symbol)}>
+            <button className="btn btn-success" onClick={() => toggleInPortfolio(stock.symbol)}>
               <span className="glyphicon glyphicon-plus-sign" aria-hidden="true"/>
             </button>
       }

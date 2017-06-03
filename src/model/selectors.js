@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { map, includes, set } from 'lodash/fp'
+import { flow, sortBy, includes, groupBy, mapKeys } from 'lodash/fp'
 
 export const selectSearchTerm = state => state.searchTerm
 export const selectStocks = state => state.stocks 
@@ -11,10 +11,11 @@ export const selectFavoriteCount = state => state.favoriteSymbols.length
 export const selectFavoriteStocks = createSelector (
   selectStocks,
   selectPortfolioSymbols,
-  (stocks, portfolioSymbols) => {
-    return map(stock => {
-      return set('inPortfolio', includes(stock.symbol, portfolioSymbols), stock)
-    }, stocks)
-  }
+  (stocks, portfolioSymbols) => 
+    flow(
+      sortBy('symbol'),
+      groupBy(({symbol}) => includes(symbol, portfolioSymbols)),
+      mapKeys(key => key === 'true' ? 'portfolio' : 'following')
+    )(stocks)
 )
  

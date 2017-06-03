@@ -7,7 +7,6 @@ import { Provider } from 'react-redux'
 
 import App from './view/app/App'
 import registerServiceWorker from './registerServiceWorker'
-import './index.css'
 import reducer from './model/reducer'
 import { updateStocks } from './model/actions'
 import { indentity } from 'lodash/fp'
