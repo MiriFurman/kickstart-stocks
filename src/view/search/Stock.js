@@ -1,6 +1,6 @@
 import React from 'react'
 import { pure } from 'recompose'
-import Change from '../Change'
+import Change from '../ConnectedChange'
 import Price from '../Price'
 import Highlight from './Highlight'
 

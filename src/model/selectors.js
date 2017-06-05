@@ -7,6 +7,7 @@ export const selectFavoriteSymbols = state => state.favoriteSymbols
 export const selectPortfolioSymbols = state => state.portfolioSymbols
 export const selectView = state => state.view
 export const selectFavoriteCount = state => state.favoriteSymbols.length
+export const selectChangeMode = state => state.changeMode
 
 export const selectFavoriteStocks = createSelector (
   selectStocks,
@@ -18,4 +19,12 @@ export const selectFavoriteStocks = createSelector (
       mapKeys(key => key === 'true' ? 'portfolio' : 'following')
     )(stocks)
 )
- 
+
+// demonstrates how not using memoization renders redundantly
+// ----------------------------------------------------------
+// export const selectFavoriteStocks = state =>
+//   flow(
+//     sortBy('symbol'),
+//     groupBy(({symbol}) => includes(symbol, state.portfolioSymbols)),
+//     mapKeys(key => key === 'true' ? 'portfolio' : 'following')
+//   )(state.stocks)
