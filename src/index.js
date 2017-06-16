@@ -24,4 +24,16 @@ render(
   </Provider>,
   document.getElementById('root')
 )
+
+fetch('https://stocks-server-dkjcijxsgq.now.sh/stocks/ab', {
+  mode: 'cors',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+.then(res => 
+  res.json()
+)
+.then(json => console.log(json))
+
 registerServiceWorker()

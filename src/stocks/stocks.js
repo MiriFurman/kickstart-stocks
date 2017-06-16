@@ -1,19 +1,19 @@
-import StocksDB from './StocksDB'
-import StocksAPI from './StocksAPI'
-import Stock from './Stock'
-import stocksData from './stocks.json'
-import { map } from 'lodash/fp'
+import { join } from 'lodash/fp'
 
-const updateStock = stock => Stock(stock.symbol, stock.name, stock.price, stock.change += (0.5 - Math.random()) / 25)
+const uri = 'https://kickstart-stocks-server.now.sh'
+const searchUri = keyword => `${uri}/stocks/search/${keyword}`
+const symbolsUri = symbols => `${uri}/stocks/symbols/${join(',', symbols)}`
 
-const stocks = map(([symbol, name]) => Stock(symbol, name, Math.floor(Math.random() * 80) + 20, 0), stocksData)
+const toJson = res => res.json()
 
-const stocksDB = StocksDB(stocks)
-
-setInterval(() => { 
-  stocksDB.update(updateStock)
-}, 1000)
-
-const stocksAPI = StocksAPI(stocksDB, 500)
+const stocksAPI = ({
+  getStockBySymbols: symbols => 
+    fetch(symbolsUri(symbols), {mode: 'cors'})
+      .then(toJson)
+  ,
+  searchStocks: keyword => 
+    fetch(searchUri(keyword), {mode: 'cors'})
+      .then(toJson)  
+})
 
 export default stocksAPI 
