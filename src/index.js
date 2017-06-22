@@ -11,7 +11,7 @@ import reducer from './model/reducer'
 import { updateStocks } from './model/actions'
 import { indentity } from 'lodash/fp'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || indentity;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || indentity
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
 
 setInterval(() => {
