@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import App from './view/app/App'
 import registerServiceWorker from './registerServiceWorker'
 import reducer from './model/reducer'
-import { updateStocks } from './model/actions'
+import { updateStocks } from './model/thunkActions'
 import { indentity } from 'lodash/fp'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || indentity

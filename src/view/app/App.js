@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { pure } from 'recompose'
 
 import FavoriteCount from '../favorites/FavoriteCount'
-import { VIEW_SEARCH, VIEW_FAVORITES, updateView } from '../../model/actions'
+import { updateView } from '../../model/thunkActions'
+import { VIEW_SEARCH, VIEW_FAVORITES } from '../../model/views'
 import { selectView } from '../../model/selectors'
 
 import ConnectedChooseStocks from '../search/ConnectedChooseStocks'

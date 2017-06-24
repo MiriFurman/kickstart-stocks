@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { uniq, without, filter } from 'lodash/fp'
 import { SET_VIEW, SET_SEARCH_TERM, ADD_FAVORITE_STOCK, REMOVE_FAVORITE_STOCK,
          ADD_PORTFOLIO_STOCK, REMOVE_PORTFOLIO_STOCK, SET_STOCKS, TOGGLE_CHANGE_MODE } from './actions'
-import { VIEW_SEARCH } from './actions'
+import { VIEW_SEARCH } from './views'
 
 import { CHANGE_PERCENTAGE, CHANGE_DOLLAR } from './changeMode'
 
