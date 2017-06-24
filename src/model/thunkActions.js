@@ -43,9 +43,14 @@ export const updateStocks = (dispatch, getState) => {
 }
  
 const searchStocks = debounce(400, (term, dispatch) => {
-  stocks.searchStocks(term).then(stocks => {
-    dispatch(setStocks(stocks))
-  })
+  if(term !== '') {
+    stocks.searchStocks(term).then(stocks => {
+      dispatch(setStocks(stocks))
+    })
+  }
+  else {
+    dispatch(setStocks([]))
+  }
 })
 
 export const updateSearchTerm = term => (dispatch, getState) => {
