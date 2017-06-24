@@ -6,7 +6,7 @@ import FavoriteCount from '../favorites/FavoriteCount'
 import { updateView } from '../../model/thunkActions'
 import { VIEW_SEARCH, VIEW_FAVORITES } from '../../model/views'
 import { selectView } from '../../model/selectors'
-
+import Indicator from './Indicator'
 import ConnectedChooseStocks from '../search/ConnectedChooseStocks'
 import ConnectedFavoriteStocks from '../favorites/ConnectedFavoriteStocks'
 
@@ -21,11 +21,11 @@ const getComponentByView = view => {
   }
 }
 
-const App = ({view, setView}) => 
+const App = ({view, setView, networkStatus}) => 
   <div className="container">
     <div className="row">
       <div className="col-md-12">
-        <h1>Kickstart Stocks</h1>
+        <h1>Kickstart Stocks <Indicator on={true}/></h1>
       </div>
     </div>
     <div className="row">
