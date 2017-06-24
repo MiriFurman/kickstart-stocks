@@ -1,10 +1,25 @@
 import { combineReducers } from 'redux'
 import { uniq, without, filter } from 'lodash/fp'
 import { SET_VIEW, SET_SEARCH_TERM, ADD_FAVORITE_STOCK, REMOVE_FAVORITE_STOCK,
-         ADD_PORTFOLIO_STOCK, REMOVE_PORTFOLIO_STOCK, SET_STOCKS, TOGGLE_CHANGE_MODE } from './actions'
+         ADD_PORTFOLIO_STOCK, REMOVE_PORTFOLIO_STOCK, SET_STOCKS, TOGGLE_CHANGE_MODE, 
+         START_REMOTE_CALL, END_REMOTE_CALL 
+} from './actionTypes'
+
 import { VIEW_SEARCH } from './views'
 
 import { CHANGE_PERCENTAGE, CHANGE_DOLLAR } from './changeMode'
+import { NETWORK_IN_PROGRESS, NETWORK_READY } from './networkStatus'
+
+const networkStatus = (status = NETWORK_READY, action) => {
+  switch(action.type) {
+    case START_REMOTE_CALL: 
+      return NETWORK_IN_PROGRESS
+    case END_REMOTE_CALL:
+      return NETWORK_READY
+    default: 
+      return status
+  }
+}
 
 const changeMode = (mode = CHANGE_PERCENTAGE, action) => {
   switch(action.type){
@@ -71,6 +86,7 @@ const stocks = (stocks = [], action) => {
 
 export default combineReducers({
   view,
+  networkStatus,
   changeMode,
   searchTerm,
   favoriteSymbols,

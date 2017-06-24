@@ -6,6 +6,7 @@ export const selectStocks = state => state.stocks
 export const selectFavoriteSymbols = state => state.favoriteSymbols
 export const selectPortfolioSymbols = state => state.portfolioSymbols
 export const selectView = state => state.view
+export const selectNetworkStatus = state => state.networkStatus
 export const selectFavoriteCount = state => state.favoriteSymbols.length
 export const selectChangeMode = state => state.changeMode
 

@@ -5,11 +5,11 @@ import { pure } from 'recompose'
 import FavoriteCount from '../favorites/FavoriteCount'
 import { updateView } from '../../model/thunkActions'
 import { VIEW_SEARCH, VIEW_FAVORITES } from '../../model/views'
-import { selectView } from '../../model/selectors'
+import { selectView, selectNetworkStatus } from '../../model/selectors'
 import Indicator from './Indicator'
 import ConnectedChooseStocks from '../search/ConnectedChooseStocks'
 import ConnectedFavoriteStocks from '../favorites/ConnectedFavoriteStocks'
-
+import { NETWORK_IN_PROGRESS } from '../../model/networkStatus'
 const getComponentByView = view => {
   switch(view){
     case VIEW_SEARCH:
@@ -25,7 +25,7 @@ const App = ({view, setView, networkStatus}) =>
   <div className="container">
     <div className="row">
       <div className="col-md-12">
-        <h1>Kickstart Stocks <Indicator on={true}/></h1>
+        <h1>Kickstart Stocks <Indicator on={networkStatus === NETWORK_IN_PROGRESS}/></h1>
       </div>
     </div>
     <div className="row">
@@ -53,7 +53,8 @@ const App = ({view, setView, networkStatus}) =>
   </div>
 
 const mapStateToProps = state => ({
-  view: selectView(state)
+  view: selectView(state),
+  networkStatus: selectNetworkStatus(state)
 })
 
 const mapDispatchToProps = dispatch => ({
